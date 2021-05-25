@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Det perfekte klasse værelse side 2</title>
+</head>
+
+<body>
+    <div id="app">
+
+<!-- denne side er kun til læren for at slette kommentare  -->
+
+
+
+        <div class="container pb-cmnt-container">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <input class="pb-cmnt-textarea" v-model="CommentData.commenttext" type="text" />
+                            <form class="form-inline">
+                                <button class="btn btn-primary pull-right" v-on:click="addComment()"
+                                    type="button">Share</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="">
+                        <div id="CommentsList" v-if="Comments.length">
+                            <h3 v-for="Comment in Comments">
+                                id: {{Comment.id}} <br> kommentar: {{Comment.commenttext}}.
+                            </h3>
+                        </div>
+                        <div v-else><button v-on:click="getAllComment" class="btn ">hent konmentare</button></div>
+                    </div>
+                </div>
+            </div>
+            <h2>Slet kommentar</h2>
+            <input v-model.number="deleteId" placeholder="id" type="number" />
+            <button v-on:click="deleteComment(deleteId)" class="btn btn-warning">Delete</button>
+            {{deleteMessage}}
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="Java/index.js"></script>
+
+</body>
+
+</html>

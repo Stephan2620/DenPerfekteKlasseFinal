@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- eget stylesheet -->
+    <link rel="stylesheet" href="Css/styles.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--  Vue -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Det perfekte klasse værelse</title>
+</head>
+
+<body>
+    <!-- id app skla være der ellers viker vue ikke  -->
+    <div id="app">
+
+        <!--  dette er informations containern som indeholder
+        informationer om klassen og vores 3.part api -->
+        <div class="container">
+            <h2>Informationer</h2>
+            <div class="row informationskasse">
+                <div class="col-md-6">
+                    <div>
+                        <h3>klassen</h3>
+                        <h3>
+                            {{Measurement.temp}} Grader
+                        </h3>
+                    </div>
+                    <div>
+                        <h3>
+                            {{Measurement.humi}} Humidity
+                        </h3>
+                    </div>
+                    <div>
+                        <h3>
+                            {{Measurement.stoej}} Støj i db
+                        </h3>
+                    </div>
+                    <div>
+                        <h3>
+                            {{Measurement.cO2}} CO2 i ppm
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div>
+                        <h3>København</h3>
+                        <h3 v-if="vejrdata">
+                            {{vejrdata.main.temp}} grader
+                        </h3>
+                    </div>
+                    <div>
+                        <h3 v-if="vejrdata">
+                            {{vejrdata.main.humidity}} humidity
+                        </h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <!-- dette er v-if der køre når deres betingelse er opfyldt de indeholder alarmer som fx når temp er for høj 
+alarmen består af en boks med en besked og en baggrunds lyd -->
+        <div class="container mincon">
+            <div v-if="Measurement.temp >= 25 ">
+                <div>
+                    <audio autoplay id="myAudio">
+                        <source src="sound/hot.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="alertred">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er for varmt luft ud
+                </div>
+            </div>
+        </div>
+
+        <div class="container mincon">
+            <div v-if="Measurement.temp == 24">
+                <div>
+                    <audio autoplay id="myAudio">
+                        <source src="sound/hot.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="closealert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er snart for varmt luft ud
+                </div>
+            </div>
+        </div>
+
+        <div class="container mincon">
+            <div v-if="Measurement.temp == 23">
+                <div>
+                    <audio autoplay id="myAudio">
+                        <source src="sound/hot.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="closealert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er snart for varmt luft ud
+                </div>
+            </div>
+        </div>
+
+        <div class="container mincon">
+            <div v-if="Measurement.temp <= 18 ">
+                <div>
+                    <audio autoplay id="myAudio">
+                        <source src="sound/cold.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="bluealert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er for koldt tænd for varmen
+                </div>
+            </div>
+        </div>
+
+        <div class="container mincon">
+            <div v-if="Measurement.humi >= 75 ">
+                <div>
+                    <audio autoplay id="myAudio">
+                        <source src="sound/wet.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="humialertW">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er for fugtigt
+                </div>
+            </div>
+        </div>
+
+        <div class="container mincon">
+            <div v-if="Measurement.humi == 74 ">
+                <div>
+                    <audio autoplay id="myAudio">
+                        <source src="sound/wet.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="closealert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er snart for fugtigt
+                </div>
+            </div>
+        </div>
+
+        <div class="container mincon">
+            <div v-if="Measurement.humi == 73 ">
+                <div>
+                    <audio autoplay id="myAudio">
+                        <source src="sound/wet.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="closealert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er snart for fugtigt
+                </div>
+            </div>
+        </div>
+
+        <div class="container mincon">
+            <div v-if="Measurement.humi <= 25 ">
+                <div>
+                    <audio autoplay id="myAudio">
+                        <source src="sound/dry.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="himualertD">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er for tørt
+                </div>
+            </div>
+        </div>
+
+        <div class="container mincon">
+            <div v-if="Measurement.stoej >= 90 ">
+                <div class="stoejalert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det larmer for meget
+                </div>
+            </div>
+        </div>
+
+        <div class="container mincon">
+            <div v-if="Measurement.stoej == 89 ">
+                <div class="closealert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det larmer snart for meget
+                </div>
+            </div>
+        </div>
+        <div class="container mincon">
+            <div v-if="Measurement.stoej == 88 ">
+                <div class="closealert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det larmer snart for meget
+                </div>
+            </div>
+        </div>
+
+        <div class="container mincon">
+            <div v-if="Measurement.stoej >= 1000 ">
+                <div class="stoejalert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er for meget CO2
+                </div>
+            </div>
+        </div>
+        <div class="container mincon">
+            <div v-if="Measurement.stoej == 999 ">
+                <div class="closealert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er næsten for meget CO2
+                </div>
+            </div>
+        </div>
+        <div class="container mincon">
+            <div v-if="Measurement.stoej == 998 ">
+                <div class="closealert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Alarm</strong> Det er næsten for meget CO2
+                </div>
+            </div>
+        </div>
+
+        <!-- knapper til elever  -->
+        <div class="container">
+            <h2>Elev knapper</h2>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" v-on:click="forvarmt()" class="knap btn btn-primary">For varmt</button>
+                    <button type="button" v-on:click="forkoldt()" class="knap btn btn-primary">For koldt</button>
+                    <button type="button" v-on:click="formegetlarm()" class="knap btn btn-primary">Højt støjniveau</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- kommentar boksen -->
+        <div class="container pb-cmnt-container">
+            <h2>Kommenter</h2>
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <input class="pb-cmnt-textarea" v-model="CommentData.commenttext" type="text" />
+                            <form class="form-inline">
+                                <button class="btn btn-primary pull-right" v-on:click="addComment()"
+                                    type="button">Share</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="">
+                        <div id="CommentsList" v-if="Comments.length">
+                            <h3 v-for="Comment in Comments">
+                                {{Comment.commenttext}}.
+                            </h3>
+                        </div>
+                        <div v-else><button v-on:click="getAllComment" class="btn ">hent konmentare</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- eget java script -->
+    <script src="Java/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+/* hele siden */
+*{
+      font-family: Lato;
+}
+
+/* kommentar boksen */
+.pb-cmnt-container {
+
+    margin-top: 5rem;
+}
+
+.pb-cmnt-textarea {
+    resize: none;
+    padding: 20px;
+    height: 130px;
+    width: 100%;
+    border: 1px solid #F2F2F2;
+}
+
+/* knapperne */
+.knap{
+    margin-right: 5rem;
+}
+
+/* informations kassen  */
+.informationskasse{
+  border: 0.5rem black solid;
+}
+
+
+/* alert boksene */
+.mincon{
+  padding: 0rem !important;
+}
+
+.alertred {
+    padding: 15px;
+    background-color: #f44336;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+ 
+  }
+  .bluealert {
+    padding: 15px;
+    background-color: #3639f4;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+
+  .humialertD{
+    padding: 15px;
+    background-color: #edc9af;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+  .humialertW{
+    padding: 15px;
+    background-color: #000078;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+  .stoejalert{
+    padding: 15px;
+    background-color: #00ff37;
+    color: black;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+  
+  .closealert{
+    padding: 15px;
+    background-color: #eaff2b;
+    color: black;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+  /* alert boksenes lukke knap */
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
